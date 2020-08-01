@@ -17,8 +17,21 @@ class FriendRequestFragment :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setAdapter()
-        friendRequestAdapter.setOnClickListener(object : FriendRequestAdapter.OnClickListener{
-            override fun onClick(friendRequest: FriendRequest) {
+        friendRequestAdapter.setConfirmButtonListener(object :
+            FriendRequestAdapter.ConfirmButtonListener {
+            override fun onClick() {
+
+            }
+        })
+        friendRequestAdapter.setRefuseButtonListener(object :
+            FriendRequestAdapter.RefuseButtonListener {
+            override fun showDialog() {
+
+            }
+        })
+        friendRequestAdapter.setCancelButtonListener(object :
+            FriendRequestAdapter.CancelButtonListener {
+            override fun onClick() {
 
             }
 

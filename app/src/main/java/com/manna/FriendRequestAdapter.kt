@@ -1,6 +1,7 @@
 package com.manna
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -8,17 +9,36 @@ import com.manna.databinding.ItemFriendRequestBinding
 import com.manna.model.FriendRequest
 
 
-class FriendRequestAdapter(private val items : MutableList<FriendRequest>) : RecyclerView.Adapter<FriendRequestAdapter.FriendRequestViewHolder>() {
+class FriendRequestAdapter(private val items: MutableList<FriendRequest>) :
+    RecyclerView.Adapter<FriendRequestAdapter.FriendRequestViewHolder>() {
     //private val items = mutableListOf<FriendRequest>()
     private lateinit var binding: ItemFriendRequestBinding
-    private lateinit var listener: OnClickListener
+    private lateinit var confirmButtonListener: ConfirmButtonListener
+    private lateinit var refuseButtonListener: RefuseButtonListener
+    private lateinit var cancelButtonListener: CancelButtonListener
 
-    interface OnClickListener {
-        fun onClick(friendRequest: FriendRequest)
+    interface ConfirmButtonListener {
+        fun onClick()
     }
 
-    fun setOnClickListener(listener: OnClickListener) {
-        this.listener = listener
+    interface RefuseButtonListener {
+        fun showDialog()
+    }
+
+    interface CancelButtonListener {
+        fun onClick()
+    }
+
+    fun setConfirmButtonListener(listener: ConfirmButtonListener) {
+        confirmButtonListener = listener
+    }
+
+    fun setRefuseButtonListener(listener: RefuseButtonListener) {
+        refuseButtonListener = listener
+    }
+
+    fun setCancelButtonListener(listener: CancelButtonListener) {
+        cancelButtonListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendRequestViewHolder {
@@ -36,8 +56,16 @@ class FriendRequestAdapter(private val items : MutableList<FriendRequest>) : Rec
     override fun getItemCount(): Int =
         items.size
 
-    override fun onBindViewHolder(holder: FriendRequestViewHolder, position: Int) =
-        holder.bind(items[position], listener)
+    override fun onBindViewHolder(holder: FriendRequestViewHolder, position: Int) {
+        if (::refuseButtonListener.isInitialized) {
+            holder.bind(
+                items[position],
+                confirmButtonListener,
+                refuseButtonListener,
+                cancelButtonListener
+            )
+        }
+    }
 
     fun addData(addDataList: List<FriendRequest>) {
         items.clear()
@@ -45,19 +73,31 @@ class FriendRequestAdapter(private val items : MutableList<FriendRequest>) : Rec
         notifyDataSetChanged()
     }
 
-    class FriendRequestViewHolder(private val binding: ItemFriendRequestBinding) : RecyclerView.ViewHolder(
-        binding.root
-    ) {
-        fun bind(item: FriendRequest, listener: OnClickListener?) {
+    class FriendRequestViewHolder(private val binding: ItemFriendRequestBinding) :
+        RecyclerView.ViewHolder(
+            binding.root
+        ) {
+        fun bind(
+            item: FriendRequest,
+            confirmButtonListener: ConfirmButtonListener,
+            refuseButtonListener: RefuseButtonListener,
+            cancelButtonListener: CancelButtonListener
+        ) {
             binding.run {
-                itemView.run {
-                    setOnClickListener {
-                        listener?.onClick(item)
-                    }
-                }
-                ivImage
                 tvNickname.text = item.nickname
-                tvFriend.text = item.friendName + "님 외 " + item.friendNum +"명과 친구입니다"
+                tvFriend.text = item.friendName + "님 외 " + item.friendNum + "명과 친구입니다"
+                btnConfirm.setOnClickListener {
+                    btnConfirm.visibility = View.INVISIBLE
+                    btnRefuse.visibility = View.INVISIBLE
+                    btnCancel.visibility = View.VISIBLE
+                    confirmButtonListener.onClick()
+                }
+                btnRefuse.setOnClickListener {
+                    refuseButtonListener.showDialog()
+                }
+                btnCancel.setOnClickListener {
+                    cancelButtonListener.onClick()
+                }
             }
         }
     }
