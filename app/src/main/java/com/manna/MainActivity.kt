@@ -1,16 +1,24 @@
 package com.manna
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.manna.base.BaseActivity
+import com.manna.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frame, FriendRequestFragment.newInstance())
-            .commit()
+        binding.btnFriendList.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame, FriendListFragment.newInstance())
+                .commit()
+        }
+
+        binding.btnFriendRequest.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame, FriendRequestFragment.newInstance())
+                .commit()
+        }
     }
 }
