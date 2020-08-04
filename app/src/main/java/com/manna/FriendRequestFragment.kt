@@ -26,7 +26,16 @@ class FriendRequestFragment :
         friendRequestAdapter.setRefuseButtonListener(object :
             FriendRequestAdapter.RefuseButtonListener {
             override fun showDialog() {
+                val newFragment =
+                    MultiDialogFragment.newInstance(
+                        getString(R.string.msg_refuse), object :
+                            MultiDialogFragment.OnClickListener {
+                            override fun onClick() {
 
+                            }
+                        }
+                    )
+                newFragment.show(requireActivity().supportFragmentManager, "dialog")
             }
         })
         friendRequestAdapter.setCancelButtonListener(object :
