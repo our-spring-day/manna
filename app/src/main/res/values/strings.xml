@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Manna</string>
+    <string name="wd_confirm">확인</string>
+    <string name="wd_refuse">거부</string>
+    <string name="wd_cancel">취소</string>
+    <string name="msg_refuse">친구 요청을 거부하시겠습니까?</string>
+    <string name="wd_friend_list">친구 목록</string>
 </resources>
