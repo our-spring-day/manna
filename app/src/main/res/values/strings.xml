@@ -5,4 +5,6 @@
     <string name="wd_cancel">취소</string>
     <string name="msg_refuse">친구 요청을 거부하시겠습니까?</string>
     <string name="wd_friend_list">친구 목록</string>
+
+    <string name="wd_add_friend">아이디로 친구 추가</string>
 </resources>
