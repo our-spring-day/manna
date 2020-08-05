@@ -1,7 +1,8 @@
-package com.manna
+package com.manna.ui.friend
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.manna.R
 import com.manna.base.BaseFragment
 import com.manna.databinding.FragmentFriendRequestBinding
 import com.manna.model.FriendRequest
@@ -12,7 +13,8 @@ class FriendRequestFragment :
         FriendRequest("yeon_berry22", "최우식", "5", ""),
         FriendRequest("heimish_08", "이연재", "5", "")
     )
-    private val friendRequestAdapter = FriendRequestAdapter(friendRequestList)
+    private val friendRequestAdapter =
+        FriendRequestAdapter(friendRequestList)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

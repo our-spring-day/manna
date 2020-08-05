@@ -1,9 +1,10 @@
-package com.manna
+package com.manna.ui.friend
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.manna.R
 import com.manna.databinding.ItemFriendListBinding
 import com.manna.model.Friend
 

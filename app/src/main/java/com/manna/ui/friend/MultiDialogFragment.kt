@@ -1,4 +1,4 @@
-package com.manna
+package com.manna.ui.friend
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.manna.R
 import kotlinx.android.synthetic.main.fragment_multi_dialog.*
 
 class MultiDialogFragment : DialogFragment() {

@@ -1,8 +1,9 @@
-package com.manna
+package com.manna.ui.friend
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.manna.R
 import com.manna.base.BaseFragment
 import com.manna.databinding.FragmentFriendListBinding
 import com.manna.model.Friend

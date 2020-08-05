@@ -1,10 +1,11 @@
-package com.manna
+package com.manna.ui.friend
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.manna.R
 import com.manna.databinding.ItemFriendRequestBinding
 import com.manna.model.FriendRequest
 
@@ -50,7 +51,9 @@ class FriendRequestAdapter(private val items: MutableList<FriendRequest>) :
             false
         )
 
-        return FriendRequestViewHolder(binding)
+        return FriendRequestViewHolder(
+            binding
+        )
     }
 
     override fun getItemCount(): Int =

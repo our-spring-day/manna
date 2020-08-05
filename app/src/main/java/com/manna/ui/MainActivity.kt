@@ -1,8 +1,11 @@
-package com.manna
+package com.manna.ui
 
 import android.os.Bundle
+import com.manna.R
 import com.manna.base.BaseActivity
 import com.manna.databinding.ActivityMainBinding
+import com.manna.ui.friend.FriendListFragment
+import com.manna.ui.friend.FriendRequestFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -11,13 +14,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         binding.btnFriendList.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.frame, FriendListFragment.newInstance())
+                .replace(
+                    R.id.frame,
+                    FriendListFragment.newInstance()
+                )
                 .commit()
         }
 
         binding.btnFriendRequest.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.frame, FriendRequestFragment.newInstance())
+                .replace(
+                    R.id.frame,
+                    FriendRequestFragment.newInstance()
+                )
                 .commit()
         }
     }

@@ -1,4 +1,4 @@
-package com.manna
+package com.manna.ui.friend
 
 import android.content.Context
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.manna.R
 import com.manna.base.BaseActivity
 import com.manna.databinding.ActivityAddFriendBinding
 
