@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Manna</string>
+    <string name="msg_enter_title">제목 입력</string>
+    <string name="wd_confirm">확인</string>
+    <string name="wd_complete">완료</string>
+    <string name="wd_select_friend">친구 선택</string>
+    <string name="wd_name_search">이름 검색</string>
 </resources>
