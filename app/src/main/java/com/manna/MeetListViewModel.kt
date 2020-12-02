@@ -19,7 +19,6 @@ class MeetListViewModel @ViewModelInject constructor(private val repository: Mee
     private val _meetList = MutableLiveData<List<MeetResponseItem>>()
     val meetList: LiveData<List<MeetResponseItem>> get() = _meetList
 
-
     fun getMeetList(deviceId: String) {
 
         compositeDisposable += repository.getMeetList(deviceId)
@@ -27,6 +26,17 @@ class MeetListViewModel @ViewModelInject constructor(private val repository: Mee
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _meetList.value = it
+            }, {
+                Logger.d("$it")
+            })
+    }
+
+    fun registerMeet(meetName: String, deviceId: String) {
+        compositeDisposable += repository.registerMeet(meetName, deviceId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.toString()
             }, {
                 Logger.d("$it")
             })
