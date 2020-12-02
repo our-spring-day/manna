@@ -14,11 +14,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gun0912.tedpermission.TedPermissionResult
 import com.manna.databinding.FragmentMeetListBinding
+import com.manna.view.CustomDialogFragment
 import com.manna.view.location.MeetDetailActivity
 import com.manna.view.search.SearchActivity
 import com.tedpark.tedpermission.rx2.TedRx2Permission
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MeetListFragment : Fragment() {
@@ -42,12 +42,22 @@ class MeetListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.meetDetail.setOnClickListener {
-//            startActivity(Intent(requireContext(), MeetDetailActivity::class.java))
-//        }
+        binding.srlMeetList.setOnRefreshListener {
+            viewModel.getMeetList(UserHolder.deviceId)
+        }
+
+        binding.btnAddMeet.setOnClickListener {
+            val newFragment =
+                CustomDialogFragment.newInstance(object : CustomDialogFragment.OnClickListener {
+                    override fun onClick(name: String) {
+                        viewModel.registerMeet(UserHolder.deviceId, name)
+                    }
+                })
+            newFragment.show(requireActivity().supportFragmentManager, "dialog")
+        }
 
         binding.run {
-            meetList.run {
+            rvMeetList.run {
                 layoutManager = LinearLayoutManager(context)
                 meetAdapter = MeetAdapter { clickedItem ->
 
@@ -87,6 +97,7 @@ class MeetListFragment : Fragment() {
             getMeetList(UserHolder.deviceId)
             meetList.observe(viewLifecycleOwner, { meetList ->
                 meetAdapter.submitList(meetList)
+                binding.srlMeetList.isRefreshing = false
             })
         }
 
