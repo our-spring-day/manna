@@ -8,7 +8,8 @@ import com.manna.network.model.meet.UserResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
-class MeetRemoteDataSourceImpl @Inject constructor(private val meetApi: MeetApi) : MeetRemoteDataSource {
+class MeetRemoteDataSourceImpl @Inject constructor(private val meetApi: MeetApi) :
+    MeetRemoteDataSource {
 
     override fun getUser(deviceId: String): Single<UserResponse> {
         return meetApi.getUser(deviceId)
@@ -28,5 +29,9 @@ class MeetRemoteDataSourceImpl @Inject constructor(private val meetApi: MeetApi)
         }
 
         return meetApi.registerMeet(body, deviceId)
+    }
+
+    override fun getUserList(roomId: String, deviceId: String): Single<ArrayList<String>> {
+        return meetApi.getUserList(roomId, deviceId)
     }
 }

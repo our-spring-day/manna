@@ -7,6 +7,7 @@ import com.manna.Event
 import com.manna.Logger
 import com.manna.UserHolder
 import com.manna.common.BaseViewModel
+import com.manna.data.source.repo.MeetRepository
 import com.manna.ext.plusAssign
 import com.manna.network.api.BingApi
 import com.manna.network.api.MeetApi
@@ -17,9 +18,13 @@ import io.reactivex.schedulers.Schedulers
 
 class MeetDetailViewModel @ViewModelInject constructor(
     private val repository: BingApi,
-    private val meetApi: MeetApi
+    private val meetApi: MeetApi,
+    private val meetRepository: MeetRepository
 ) :
     BaseViewModel() {
+
+    private val _userList = MutableLiveData<ArrayList<String>>()
+    val connectUserList: LiveData<ArrayList<String>> get() = _userList
 
     private val _drawWayPoints = MutableLiveData<List<WayPoint>>()
     val drawWayPoints: LiveData<List<WayPoint>> get() = _drawWayPoints
@@ -114,4 +119,16 @@ class MeetDetailViewModel @ViewModelInject constructor(
                 Logger.d("$it")
             })
     }
+
+    fun getUserList(roomId: String, deviceId: String) {
+        compositeDisposable += meetRepository.getUserList(roomId, deviceId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _userList.value = it
+            }, {
+                Logger.d("$it")
+            })
+    }
+
 }

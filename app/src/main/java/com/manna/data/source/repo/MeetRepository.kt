@@ -14,5 +14,7 @@ interface MeetRepository {
     fun getMeetList(deviceId: String): Single<MeetResponse>
 
     fun registerMeet(meetName: String, deviceId: String): Single<MeetResponseItem>
+
+    fun getUserList(roomId: String, deviceId: String): Single<ArrayList<String>>
 }
 

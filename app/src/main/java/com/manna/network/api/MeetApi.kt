@@ -54,6 +54,12 @@ interface MeetApi {
         @Query("deviceToken") deviceToken: String
     ): Single<JsonObject>
 
+    @GET("manna/{uuid}")
+    fun getUserList(
+        @Path("uuid") roomId: String,
+        @Query("deviceToken") deviceToken: String
+    ): Single<ArrayList<String>>
+
     companion object {
         const val BASE_URL = "https://manna.duckdns.org:18888/"
         const val SOCKET_URL = "https://manna.duckdns.org:19999/"

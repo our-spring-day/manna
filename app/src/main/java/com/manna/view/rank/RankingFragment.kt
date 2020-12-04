@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.manna.Event
 import com.manna.Logger
 import com.manna.R
+import com.manna.UserHolder
 import com.manna.databinding.FragmentRankingBinding
-import com.manna.view.User
 import com.manna.view.location.MeetDetailViewModel
 
 
@@ -36,25 +35,29 @@ class RankingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.getUserList(roomId, UserHolder.deviceId)
 
         binding.rvUser.adapter = rankingAdapter
 
-
-        rankingAdapter.setOnClickListener(object : RankingAdapter.OnClickListener {
-            override fun onClick(user: User) {
-
-                viewModel.urgingUser(roomId, user.deviceToken)
-
-//                viewModel.bottomUserItemClickEvent.value = Event(user)
-            }
-        })
-
-        activity
-        viewModel.userList.observe(viewLifecycleOwner, {
+        viewModel.connectUserList.observe(viewLifecycleOwner, {
             Logger.d("$it")
             rankingAdapter.submitList(it)
         })
+
+//        rankingAdapter.setOnClickListener(object : RankingAdapter.OnClickListener {
+//            override fun onClick(user: User) {
+//
+//                viewModel.urgingUser(roomId, user.deviceToken)
+//
+////                viewModel.bottomUserItemClickEvent.value = Event(user)
+//            }
+//        })
+//
+//        activity
+//        viewModel.userList.observe(viewLifecycleOwner, {
+//            Logger.d("$it")
+//            rankingAdapter.submitList(it)
+//        })
 
 
     }

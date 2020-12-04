@@ -24,4 +24,8 @@ class MeetRepositoryImpl @Inject constructor(private val meetRemoteDataSource: M
     override fun registerMeet(meetName: String, deviceId: String): Single<MeetResponseItem> {
         return meetRemoteDataSource.registerMeet(meetName, deviceId)
     }
+
+    override fun getUserList(roomId: String, deviceId: String): Single<ArrayList<String>> {
+        return meetRemoteDataSource.getUserList(roomId, deviceId)
+    }
 }

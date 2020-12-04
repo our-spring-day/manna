@@ -15,5 +15,6 @@ interface MeetRemoteDataSource {
 
     fun registerMeet(meetName: String, deviceId: String): Single<MeetResponseItem>
 
+    fun getUserList(roomId: String, deviceId: String): Single<ArrayList<String>>
 }
 
