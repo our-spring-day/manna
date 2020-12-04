@@ -6,8 +6,6 @@ import com.manna.network.model.meet.MeetResponse
 import com.manna.network.model.meet.MeetResponseItem
 import com.manna.network.model.meet.UserResponse
 import io.reactivex.Single
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface MeetApi {
@@ -35,10 +33,11 @@ interface MeetApi {
     @GET("manna")
     fun getMeetList(@Query("deviceToken") deviceToken: String): Single<MeetResponse>
 
+    @FormUrlEncoded
     @POST("manna")
     fun registerMeet(
-        @Body body: JsonObject,
-        @Query("deviceToken") deviceToken: String
+        @Query("deviceToken") deviceToken: String,
+        @Field("mannaName") mannaName: String
     ): Single<MeetResponseItem>
 
     @GET("manna/{uuid}/chat")

@@ -31,12 +31,13 @@ class MeetListViewModel @ViewModelInject constructor(private val repository: Mee
             })
     }
 
-    fun registerMeet(meetName: String, deviceId: String) {
+    fun registerMeet(deviceId: String, meetName: String) {
         compositeDisposable += repository.registerMeet(meetName, deviceId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.toString()
+                Logger.d("$it")
             }, {
                 Logger.d("$it")
             })
