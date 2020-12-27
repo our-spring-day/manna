@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.manna.R
 import com.manna.databinding.ItemOngoingBinding
+import com.manna.network.model.meet.UserResponse
 import com.manna.view.User
 
 sealed class RankingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -18,16 +19,16 @@ sealed class RankingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = DataBindingUtil.bind<ItemOngoingBinding>(itemView)!!
 
-        fun bind(item: String, listener: RankingAdapter.OnClickListener?) {
+        fun bind(item: User, listener: RankingAdapter.OnClickListener?) {
             itemView.run {
                 binding.btnHurry.setOnClickListener {
                     listener?.onClick(item)
                 }
 
-                //setRemainValue(item)
-                binding.name.text = item
+                setRemainValue(item)
+                binding.name.text = item.name
                 binding.profileImage.let {
-                    when (item) {
+                    when (item.name) {
                         "이연재" -> Glide.with(this).load(R.drawable.test_2).into(it)
                         "원우석" -> Glide.with(this).load(R.drawable.image_3).into(it)
                         "윤상원" -> Glide.with(this).load(R.drawable.image_2).into(it)
@@ -42,10 +43,10 @@ sealed class RankingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
         }
 
-//        private fun setRemainValue(item: UserResponse) {
-//            binding.remainTime.text = item.remainTime?.let {
-//                "약 ${it / 60}분 남음"
-//            } ?: ""
-//        }
+        private fun setRemainValue(item: User) {
+            binding.remainTime.text = item.remainTime?.let {
+                "약 ${it / 60}분 남음"
+            } ?: ""
+        }
     }
 }

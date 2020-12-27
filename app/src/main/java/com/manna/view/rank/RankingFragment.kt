@@ -11,6 +11,7 @@ import com.manna.Logger
 import com.manna.R
 import com.manna.UserHolder
 import com.manna.databinding.FragmentRankingBinding
+import com.manna.view.User
 import com.manna.view.location.MeetDetailViewModel
 
 
@@ -41,25 +42,21 @@ class RankingFragment : Fragment() {
 
         viewModel.connectUserList.observe(viewLifecycleOwner, {
             Logger.d("$it")
-            rankingAdapter.submitList(it)
         })
 
-//        rankingAdapter.setOnClickListener(object : RankingAdapter.OnClickListener {
-//            override fun onClick(user: User) {
-//
-//                viewModel.urgingUser(roomId, user.deviceToken)
-//
-////                viewModel.bottomUserItemClickEvent.value = Event(user)
-//            }
-//        })
-//
-//        activity
-//        viewModel.userList.observe(viewLifecycleOwner, {
-//            Logger.d("$it")
-//            rankingAdapter.submitList(it)
-//        })
+        rankingAdapter.setOnClickListener(object : RankingAdapter.OnClickListener {
+            override fun onClick(user: User) {
 
+                viewModel.urgingUser(roomId, user.deviceToken)
 
+//                viewModel.bottomUserItemClickEvent.value = Event(user)
+            }
+        })
+
+        viewModel.userList.observe(viewLifecycleOwner, {
+            Logger.d("$it")
+            rankingAdapter.submitList(it)
+        })
     }
 
     companion object {

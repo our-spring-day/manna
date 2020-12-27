@@ -7,19 +7,19 @@ import androidx.recyclerview.widget.ListAdapter
 import com.manna.view.User
 
 class RankingAdapter :
-    ListAdapter<String, RankingViewHolder>(
-        object : DiffUtil.ItemCallback<String>() {
-            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =
+    ListAdapter<User, RankingViewHolder>(
+        object : DiffUtil.ItemCallback<User>() {
+            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean =
                 oldItem == newItem
 
-            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean =
+            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean =
                 oldItem == newItem
         }
     ) {
     private var onClickListener: OnClickListener? = null
 
     interface OnClickListener {
-        fun onClick(user: String)
+        fun onClick(user: User)
     }
 
     fun setOnClickListener(listener: OnClickListener) {
